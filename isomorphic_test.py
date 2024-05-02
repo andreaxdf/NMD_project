@@ -5,7 +5,7 @@ from game.game import Game
 
 
 # cycling_check: indicates every how many steps the isomorphism test must be executed
-def run_isomorphic_test(graph1, graph2, isomorphism_test, cycling_check, show_steps=False):
+def run_isomorphic_test(graph1, graph2, isomorphism_test, cycling_check=5, show_steps=False):
 
     assert cycling_check > 0
 
@@ -22,11 +22,16 @@ def run_isomorphic_test(graph1, graph2, isomorphism_test, cycling_check, show_st
     game1 = Game(graph1)
     game2 = Game(graph2)
 
+    is_finished1 = 0
+    is_finished2 = 0
+
     while True:
         # Run the game for N steps and then execute the isomorphic test
         for i in range(cycling_check):
-            is_finished1: bool = game1.game_iteration()
-            is_finished2: bool = game2.game_iteration()
+            is_finished1: int = game1.game_iteration()
+            is_finished2: int = game2.game_iteration()
+            if is_finished1 != 0 or is_finished2 != 0:
+                break
         is_isomorphic = isomorphism_test(graph1, graph2)
         if show_steps:
             color1 = [data['color'] for v, data in graph1.nodes(data=True)]
@@ -41,6 +46,6 @@ def run_isomorphic_test(graph1, graph2, isomorphism_test, cycling_check, show_st
         if not is_isomorphic:
             return False
 
-        if is_finished1 or is_finished2:
+        if is_finished1 != 0 or is_finished2 != 0:
             # print("GAME FINISHED")
             return is_isomorphic

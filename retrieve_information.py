@@ -10,7 +10,8 @@ from tests.third_test import isomorphism_test as test4
 from utils.utils import get_random_graph_one_live_node
 from isomorphic_test import run_isomorphic_test
 
-CSV_FILE = 'execution_times_more.csv'
+CSV_FILE = 'execution_times.csv'
+CSV_FILE_MORE = 'execution_times_more.csv'
 
 
 def execute_test(filename: str, isomorphism_test_list: list, steps: int, nodes: int, p: float):
@@ -44,7 +45,9 @@ def execute_test(filename: str, isomorphism_test_list: list, steps: int, nodes: 
             writer.writerow(info)
 
 
-def gather_more_information(filename: str, test_list):
+def gather_more_information(test_list):
+    filename = CSV_FILE_MORE
+
     p_values = [0.2, 0.4, 0.6, 0.8, 1.0]
 
     with open(filename, mode='a', newline='') as file:
@@ -58,7 +61,9 @@ def gather_more_information(filename: str, test_list):
             execute_test(filename, test_list, 3, nodes, p)
 
 
-def gather_information(filename, test_list):
+def gather_information(test_list):
+    filename = CSV_FILE_MORE
+
     p_values = [0.2, 0.4, 0.6, 0.8, 1.0]
     nodes_steps_values = [(10, 10), (100, 3), (1000, 1)]  # (number of nodes, how many graphs should be tried)
 
@@ -70,11 +75,9 @@ def gather_information(filename, test_list):
     for p in p_values:
         for nodes, steps in nodes_steps_values:
             print(f"Starting run with: p={p}, steps={steps}, nodes={nodes}.")
-            execute_test(test_list, steps, nodes, p)
+            execute_test(filename, test_list, steps, nodes, p)
 
 
 function_list = [(test1, "dummy_test"), (test2, "first_test"), (test3, "second_test"), (test4, "third_test")]
 
-# TODO scegliere test da abbinare
-
-gather_more_information(CSV_FILE, function_list)
+gather_more_information(function_list)
