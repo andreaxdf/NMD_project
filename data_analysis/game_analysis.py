@@ -8,7 +8,7 @@ from matplotlib import pyplot as plt
 from game.game import Game
 from utils.utils import get_random_graph_one_live_node
 
-CSV_FILENAME = "graph_ends.csv"
+CSV_FILENAME = "data/graph_ends.csv"
 
 P_VALUES = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
 

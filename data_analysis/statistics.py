@@ -1,8 +1,7 @@
 import matplotlib.pyplot as plt
 import pandas as pd
 
-FILE_PATH = "../execution_times_more.csv"
-
+from retrieve_information import CSV_FILE_FEW_CHANGES
 
 # Print the main statistics about the dataset in input
 def get_statistics(df: pd.DataFrame):
@@ -63,7 +62,7 @@ def plot_results(df: pd.DataFrame, column: str, only_isomorphic: bool = False):
     plt.show()
 
 
-result_df = pd.read_csv(FILE_PATH)
+result_df = pd.read_csv(CSV_FILE_FEW_CHANGES)
 
 # plot_results(result_df, 'Nodes', True)
 # plot_results(result_df, 'p', True)
